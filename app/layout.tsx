@@ -3,9 +3,12 @@ import './globals.css';
 import { Analytics } from '@vercel/analytics/react';
 
 export const metadata = {
-  title: 'Next.js App Router + NextAuth + Tailwind CSS',
+  title: {
+    template: '%s | Dashboard',
+    default: 'Dashboard'
+  },
   description:
-    'A user admin dashboard configured with Next.js, Postgres, NextAuth, Tailwind CSS, TypeScript, and Prettier.'
+    'Dashboard para uso interno de la empresa, con el fin de tener un control de los servicios ofrecidos y los clientes que los utilizan.'
 };
 
 export default function RootLayout({
@@ -14,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body className="flex min-h-screen w-full flex-col">{children}</body>
       <Analytics />
     </html>

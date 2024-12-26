@@ -33,10 +33,13 @@ export async function User() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>
+          <Link href={'/account'}>Mi Cuenta</Link>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Settings</DropdownMenuItem>
-        <DropdownMenuItem>Support</DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href={'/settings'}>Ajustes</Link>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         {user ? (
           <DropdownMenuItem>
@@ -46,12 +49,12 @@ export async function User() {
                 await signOut();
               }}
             >
-              <button type="submit">Sign Out</button>
+              <button type="submit">Cerrar Sesión</button>
             </form>
           </DropdownMenuItem>
         ) : (
           <DropdownMenuItem>
-            <Link href="/login">Sign In</Link>
+            <Link href="/login">Iniciar Sesión</Link>
           </DropdownMenuItem>
         )}
       </DropdownMenuContent>

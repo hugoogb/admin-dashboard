@@ -44,7 +44,7 @@ export function ServicesTable({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>services</CardTitle>
+        <CardTitle>Servicios</CardTitle>
         <CardDescription>
           Manage your services and view their sales performance.
         </CardDescription>
