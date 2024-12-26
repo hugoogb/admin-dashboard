@@ -18,55 +18,53 @@ export const db = drizzle(neon(process.env.POSTGRES_URL!));
 
 export const statusEnum = pgEnum('status', ['active', 'inactive', 'archived']);
 
-export const products = pgTable('products', {
+export const services = pgTable('services', {
   id: serial('id').primaryKey(),
   imageUrl: text('image_url').notNull(),
   name: text('name').notNull(),
   status: statusEnum('status').notNull(),
-  price: numeric('price', { precision: 10, scale: 2 }).notNull(),
-  stock: integer('stock').notNull(),
-  availableAt: timestamp('available_at').notNull()
+  price: numeric('price', { precision: 10, scale: 2 }).notNull()
 });
 
-export type SelectProduct = typeof products.$inferSelect;
-export const insertProductSchema = createInsertSchema(products);
+export type SelectService = typeof services.$inferSelect;
+export const insertserviceschema = createInsertSchema(services);
 
-export async function getProducts(
+export async function getServices(
   search: string,
   offset: number
 ): Promise<{
-  products: SelectProduct[];
+  services: SelectService[];
   newOffset: number | null;
-  totalProducts: number;
+  totalservices: number;
 }> {
   // Always search the full table, not per page
   if (search) {
     return {
-      products: await db
+      services: await db
         .select()
-        .from(products)
-        .where(ilike(products.name, `%${search}%`))
+        .from(services)
+        .where(ilike(services.name, `%${search}%`))
         .limit(1000),
       newOffset: null,
-      totalProducts: 0
+      totalservices: 0
     };
   }
 
   if (offset === null) {
-    return { products: [], newOffset: null, totalProducts: 0 };
+    return { services: [], newOffset: null, totalservices: 0 };
   }
 
-  let totalProducts = await db.select({ count: count() }).from(products);
-  let moreProducts = await db.select().from(products).limit(5).offset(offset);
-  let newOffset = moreProducts.length >= 5 ? offset + 5 : null;
+  let totalservices = await db.select({ count: count() }).from(services);
+  let moreservices = await db.select().from(services).limit(5).offset(offset);
+  let newOffset = moreservices.length >= 5 ? offset + 5 : null;
 
   return {
-    products: moreProducts,
+    services: moreservices,
     newOffset,
-    totalProducts: totalProducts[0].count
+    totalservices: totalservices[0].count
   };
 }
 
-export async function deleteProductById(id: number) {
-  await db.delete(products).where(eq(products.id, id));
+export async function deleteServiceById(id: number) {
+  await db.delete(services).where(eq(services.id, id));
 }

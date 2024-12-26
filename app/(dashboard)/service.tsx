@@ -10,10 +10,10 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { MoreHorizontal } from 'lucide-react';
 import { TableCell, TableRow } from '@/components/ui/table';
-import { SelectProduct } from '@/lib/db';
-import { deleteProduct } from './actions';
+import { SelectService } from '@/lib/db';
+import { deleteService } from './actions';
 
-export function Product({ product }: { product: SelectProduct }) {
+export function Service({ service }: { service: SelectService }) {
   return (
     <TableRow>
       <TableCell className="hidden sm:table-cell">
@@ -21,21 +21,17 @@ export function Product({ product }: { product: SelectProduct }) {
           alt="Product image"
           className="aspect-square rounded-md object-cover"
           height="64"
-          src={product.imageUrl}
+          src={service.imageUrl}
           width="64"
         />
       </TableCell>
-      <TableCell className="font-medium">{product.name}</TableCell>
+      <TableCell className="font-medium">{service.name}</TableCell>
       <TableCell>
         <Badge variant="outline" className="capitalize">
-          {product.status}
+          {service.status}
         </Badge>
       </TableCell>
-      <TableCell className="hidden md:table-cell">{`$${product.price}`}</TableCell>
-      <TableCell className="hidden md:table-cell">{product.stock}</TableCell>
-      <TableCell className="hidden md:table-cell">
-        {product.availableAt.toLocaleDateString("en-US")}
-      </TableCell>
+      <TableCell className="hidden md:table-cell">{`$${service.price}`}</TableCell>
       <TableCell>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -48,7 +44,7 @@ export function Product({ product }: { product: SelectProduct }) {
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuItem>
-              <form action={deleteProduct}>
+              <form action={deleteService}>
                 <button type="submit">Delete</button>
               </form>
             </DropdownMenuItem>
